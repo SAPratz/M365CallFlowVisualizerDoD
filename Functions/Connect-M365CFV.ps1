@@ -21,7 +21,7 @@ function Connect-M365CFV {
 
     catch {
 
-        Connect-MicrosoftTeams -ErrorAction SilentlyContinue
+        Connect-MicrosoftTeams -TeamsEnvironmentName TeamsDoD -ErrorAction SilentlyContinue
         $msTeamsTenant = Get-CsTenant
 
     }
@@ -61,7 +61,7 @@ function Connect-M365CFV {
                     Disconnect-MgGraph
                 }
 
-                Connect-MgGraph -Scopes "User.Read.All", "Group.Read.All" -TenantId $msTeamsTenantId
+                Connect-MgGraph -Environment USGovDoD -Scopes "User.Read.All", "Group.Read.All" -TenantId $msTeamsTenantId
 
                 $msGraphContext = (Get-MgContext).TenantId
 
@@ -82,13 +82,13 @@ function Connect-M365CFV {
 
         if ($ConnectWithServicePrincipal) {
 
-            Connect-MgGraph -AccessToken $graphTokenSecureString > $null
+            Connect-MgGraph -Environment USGovDoD -AccessToken $graphTokenSecureString > $null
 
         }
 
         else {
 
-            Connect-MgGraph -Scopes "User.Read.All", "Group.Read.All" -TenantId $msTeamsTenantId
+            Connect-MgGraph -Environment USGovDoD -Scopes "User.Read.All", "Group.Read.All" -TenantId $msTeamsTenantId
 
         }
 
